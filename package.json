@@ -10,5 +10,9 @@
   },
   "devDependencies": {
     "vite": "^4.4.5"
+  },
+  "dependencies": {
+    "onnxruntime-web": "^1.16.2",
+    "vite-plugin-static-copy": "^0.17.0"
   }
 }
