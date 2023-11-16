@@ -45,21 +45,26 @@ async function main() {
       webcam.srcObject = stream;
       webcam.play();
     })
-    .catch((err) => {
-      console.error(`An error occurred: ${err}`);
-    });
 
   // Once the first frame is loaded to the webcam video element, set the
   // width,height of all the other elements and start processing the frames.
   webcam.addEventListener("loadeddata", (_) => {
+    document.getElementById("description").innerHTML = `A simple demo of ONNX Runtime for Web running a neural style transfer model on webcam inputs (<a href="https://github.com/jaymody/onnxruntime-web-example">source code</a>)`
     webcam.setAttribute("width", webcam.videoWidth);
     webcam.setAttribute("height", webcam.videoHeight);
     canvas.setAttribute("width", webcam.videoWidth);
     canvas.setAttribute("height", webcam.videoHeight);
-    display.setAttribute("width", webcam.videoWidth);
-    display.setAttribute("height", webcam.videoHeight);
+    display.setAttribute("width", 224);
+    display.setAttribute("height", 224);
     processFrame();
   });
 }
 
-main();
+(async () => {
+  try {
+    await main()
+  } catch (err) {
+    console.error(err);
+    document.getElementById("description").innerText = "An error was encountered."
+  }
+})()
